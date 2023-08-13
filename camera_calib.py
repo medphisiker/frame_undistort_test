@@ -36,8 +36,9 @@ def undistort_frame(distorted_img_filename, path_to_calib_file, result_folder=""
     # Returns optimal camera matrix and a rectangular region of interest
     # смотрим для подробностей "What does the getOptimalNewCameraMatrix do in OpenCV?"
     # в "полезные ссылки.txt"
-    start = time.time()
-    for i in range(0, 1000):
+    
+    for i in range(0, 100):
+        start = time.time()
         optimal_camera_matrix, roi_0 = cv2.getOptimalNewCameraMatrix(
             mtx, dist, (width, height), 0, (width, height)
         )
@@ -45,8 +46,8 @@ def undistort_frame(distorted_img_filename, path_to_calib_file, result_folder=""
         undistorted_image = cv2.undistort(
             distorted_image, mtx, dist, None, optimal_camera_matrix
         )
-    end = time.time()
-    print(end - start)
+        end = time.time()
+        print(1 / (end - start))
     
     # Create the output file name by removing the '.jpg' part
     img_name = os.path.split(distorted_img_filename)[-1]

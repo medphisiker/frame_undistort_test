@@ -27,15 +27,13 @@ if __name__ == "__main__":
         distorted_img_filename, kornia.io.ImageLoadType.RGB32, device="cuda"
     )
     
-    img_bgr_tensor = img_bgr_tensor.repeat(8, 1, 1, 1)
-    mtx = mtx.repeat(8, 1, 1)
-    dist_coeff = dist_coeff.repeat(8, 1)
+    img_bgr_tensor = img_bgr_tensor.unsqueeze(0)    
     
-    start = time.time()
-    for i in range(0, 125):
+    for i in range(0, 100):
+        start = time.time()
         out = kornia.geometry.calibration.undistort_image(img_bgr_tensor, mtx, dist_coeff)
-    end = time.time()
+        end = time.time()
     
-    print(end - start)
+        print(1 / (end - start))
     
     # save_tensor_as_image("kornia_undistornt_test.jpg", out)
